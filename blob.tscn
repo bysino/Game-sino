@@ -1,0 +1,39 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://assets/blob/blob_walk_0.png" type="Texture" id=1]
+[ext_resource path="res://assets/blob/blob_walk_2.png" type="Texture" id=2]
+[ext_resource path="res://assets/blob/blob_walk_1.png" type="Texture" id=3]
+[ext_resource path="res://assets/blob/blob_walk_3.png" type="Texture" id=4]
+[ext_resource path="res://blob.gd" type="Script" id=5]
+[ext_resource path="res://assets/blob/blob_die_2.png" type="Texture" id=6]
+[ext_resource path="res://assets/blob/blob_die_1.png" type="Texture" id=7]
+[ext_resource path="res://assets/blob/blob_die_0.png" type="Texture" id=8]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "walk",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 8 ), ExtResource( 7 ), ExtResource( 6 ) ],
+"loop": false,
+"name": "die",
+"speed": 25.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 6.62923, 2.06955 )
+
+[node name="Blob" type="KinematicBody2D"]
+script = ExtResource( 5 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -8.34275 )
+frames = SubResource( 1 )
+animation = "die"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0.244488, -4.80629 )
+shape = SubResource( 2 )
+[connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
